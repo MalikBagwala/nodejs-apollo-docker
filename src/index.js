@@ -1,6 +1,10 @@
 const { ApolloServer, gql } = require("apollo-server");
-require("./services/mongoose.service");
+import { User } from "./api/user/user.model";
 
+User.insertMany([
+  { firstName: "Malik", lastName: "Bagwala" },
+  { firstName: "Huzefa", lastName: "Bagwala" }
+]);
 // A schema is a collection of type definitions (hence "typeDefs")
 // that together define the "shape" of queries that are executed against
 // your data.

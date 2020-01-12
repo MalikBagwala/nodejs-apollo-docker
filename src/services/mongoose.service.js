@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 mongoose
   .connect("mongodb://mongo-database:27017/nodejs-apollo-docker", {
@@ -7,3 +7,5 @@ mongoose
   })
   .then(c => console.log("MONGO CONNECTED ##"))
   .catch(err => console.error(err));
+
+export default mongoose;
