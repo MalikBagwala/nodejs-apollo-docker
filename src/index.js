@@ -1,59 +1,35 @@
 const { ApolloServer, gql } = require("apollo-server");
-import { User } from "./api/user/user.model";
-
-// User.insertMany([
-//   { firstName: "Malik", lastName: "Bagwala" },
-//   { firstName: "Huzefa", lastName: "Bagwala" }
-// ])
-// .then(data => {
-//   console.log(data);
-// })
-// .catch(err => {
-//   console.error(err);
-// });
-// A schema is a collection of type definitions (hence "typeDefs")
-// that together define the "shape" of queries that are executed against
-// your data.
+import User from "./api/user/user.model";
 const typeDefs = gql`
-  # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
-
-  # This "Book" type defines the queryable fields for every book in our data source.
-  type Book {
-    id: Int
-    date: String
-    title: String
-    author: String
+  type User {
+    firstName: String
+    lastName: String
+  }
+  type Mutation {
+    addUser(firstName: String, lastName: String): User
   }
 
-  # The "Query" type is special: it lists all of the available queries that
-  # clients can execute, along with the return type for each. In this
-  # case, the "books" query returns an array of zero or more Books (defined above).
   type Query {
-    books: [Book]
+    users: [User]
   }
 `;
-
-// Data
-const books = [
-  {
-    id: 1,
-    title: "Harry Potter and the Chamber of Secrets",
-    author: "J.K. Rowling",
-    date: "1998-09-10"
-  },
-  {
-    id: 2,
-    title: "Jurassic Park",
-    author: "Michael Crichton",
-    date: "2020-01-01"
-  }
-];
 
 // Resolvers define the technique for fetching the types defined in the
 // schema. This resolver retrieves books from the "books" array above.
 const resolvers = {
+  Mutation: {
+    addUser(_, args) {
+      const user = new User(args);
+      user.save(null, asd => {
+        console.log(asd);
+      });
+      return user;
+    }
+  },
   Query: {
-    books: () => books
+    users() {
+      return User.find();
+    }
   }
 };
 
