@@ -1,10 +1,16 @@
 const { ApolloServer, gql } = require("apollo-server");
 import { User } from "./api/user/user.model";
 
-User.insertMany([
-  { firstName: "Malik", lastName: "Bagwala" },
-  { firstName: "Huzefa", lastName: "Bagwala" }
-]);
+// User.insertMany([
+//   { firstName: "Malik", lastName: "Bagwala" },
+//   { firstName: "Huzefa", lastName: "Bagwala" }
+// ])
+// .then(data => {
+//   console.log(data);
+// })
+// .catch(err => {
+//   console.error(err);
+// });
 // A schema is a collection of type definitions (hence "typeDefs")
 // that together define the "shape" of queries that are executed against
 // your data.
@@ -13,6 +19,8 @@ const typeDefs = gql`
 
   # This "Book" type defines the queryable fields for every book in our data source.
   type Book {
+    id: Int
+    date: String
     title: String
     author: String
   }
@@ -28,12 +36,16 @@ const typeDefs = gql`
 // Data
 const books = [
   {
+    id: 1,
     title: "Harry Potter and the Chamber of Secrets",
-    author: "J.K. Rowling"
+    author: "J.K. Rowling",
+    date: "1998-09-10"
   },
   {
+    id: 2,
     title: "Jurassic Park",
-    author: "Michael Crichton"
+    author: "Michael Crichton",
+    date: "2020-01-01"
   }
 ];
 

@@ -9,6 +9,8 @@ services:
       - 8080:4000
     links:
       - db
+    volumes:
+      - ./src:/usr/src/app/src
 
   db:
     container_name: mongo-database
